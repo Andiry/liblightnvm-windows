@@ -11,5 +11,11 @@ gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_cli.c
 gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_cmd.c
 gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_dev.c
 gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_geo.c
+gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_lba.c
+gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_spec.c
+gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_vblk.c
+gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_ver.c
+
+gcc -shared -Wall -fPIC -O3 -std=c11 -o liblightnvm.dll *.o
 
 
