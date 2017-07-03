@@ -17,5 +17,9 @@ gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_vblk.c
 gcc -Wall -fPIC -O3 -std=c11 -c ../src/nvm_ver.c
 
 gcc -shared -Wall -fPIC -O3 -std=c11 -o liblightnvm.dll *.o
+copy liblightnvm.dll ..\test\
 
+cd ..
+cd test
 
+gcc -Wall -fPIC -O3 -std=c11 -o test.exe test.c -L./ -lliblightnvm

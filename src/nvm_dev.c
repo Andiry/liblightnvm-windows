@@ -335,11 +335,13 @@ struct nvm_dev * nvm_dev_openf(const char *dev_path, int flags) {
 
 struct nvm_dev *nvm_dev_open(const char *dev_path)
 {
+	printf("%s: %s\n", __func__, dev_path);
 	return nvm_dev_openf(dev_path, 0x0);
 }
 
 void nvm_dev_close(struct nvm_dev *dev)
 {
+	printf("%s\n", __func__);
 	if (!dev)
 		return;
 
