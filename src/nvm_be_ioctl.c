@@ -104,7 +104,7 @@ int nvm_be_ioctl_vadmin(struct nvm_dev *dev, struct nvm_cmd *cmd,
 int nvm_be_ioctl_user(struct nvm_dev *dev, struct nvm_cmd *cmd,
 		      struct nvm_ret *ret)
 {
-	const int err = DeviceIoControl(dev->fd, NVME_IOCTL_SUBMIT_IO, 
+	const int err = DeviceIoControl(dev->fd, NVME_IOCTL_SUBMIT_IO,
 		 		cmd, sizeof(struct nvm_cmd),
 				cmd, sizeof(struct nvm_cmd),
 				NULL, NULL);
@@ -123,7 +123,7 @@ int nvm_be_ioctl_user(struct nvm_dev *dev, struct nvm_cmd *cmd,
 int nvm_be_ioctl_admin(struct nvm_dev *dev, struct nvm_cmd *cmd,
 		       struct nvm_ret *ret)
 {
-	const int err = DeviceIoControl(dev->fd, NVME_IOCTL_ADMIN_CMD, 
+	const int err = DeviceIoControl(dev->fd, NVME_IOCTL_ADMIN_CMD,
 		 		cmd, sizeof(struct nvm_cmd),
 				cmd, sizeof(struct nvm_cmd),
 				NULL, NULL);
@@ -175,7 +175,7 @@ static inline int _ioctl_fill_geo(struct nvm_dev *dev, struct nvm_ret *ret)
 
 	err = nvm_be_ioctl_vadmin(dev, &cmd, ret);
 	if (err) {
-		free(idf);
+		_aligned_free(idf);
 		return -1;			// NOTE: Propagate errno
 	}
 
@@ -214,7 +214,7 @@ static inline int _ioctl_fill_geo(struct nvm_dev *dev, struct nvm_ret *ret)
 	default:
 		NVM_DEBUG("Unsupported Version ID(%d)", idf->s.verid);
 		errno = ENOSYS;
-		free(idf);
+		_aligned_free(idf);
 		return -1;
 	}
 
@@ -249,7 +249,7 @@ static inline int _ioctl_fill_geo(struct nvm_dev *dev, struct nvm_ret *ret)
 		break;
 	default:
 		errno = EINVAL;
-		free(idf);
+		_aligned_free(idf);
 		return -1;
 	}
 
@@ -259,7 +259,7 @@ static inline int _ioctl_fill_geo(struct nvm_dev *dev, struct nvm_ret *ret)
 
 	dev->meta_mode = NVM_META_MODE_NONE;
 
-	free(idf);
+	_aligned_free(idf);
 
 	return 0;
 }
@@ -269,7 +269,7 @@ struct nvm_dev *nvm_be_ioctl_open(const char *dev_path, int flags)
 	struct nvm_dev *dev = NULL;
 	struct nvm_ret ret = {0,0};
 	int err;
-	
+
 	if (strlen(dev_path) > NVM_DEV_PATH_LEN) {
 		NVM_DEBUG("FAILED: Device path too long\n");
 		errno = EINVAL;

@@ -38,6 +38,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <malloc.h>
 #include <sys/types.h>
 #include <windows.h>
 #include "liblightnvm_spec.h"
@@ -783,6 +784,13 @@ const struct nvm_geo *nvm_dev_get_geo(const struct nvm_dev *dev);
  * `errno` set appropriatly
  */
 void *nvm_buf_alloc(const struct nvm_geo *geo, size_t nbytes);
+
+/**
+ * Free a buffer aligned to given geometry
+ *
+ * @param buf Pointer to the buffer to free
+ */
+void nvm_buf_free(void *buf);
 
 /**
  * Fills `buf` with chars A-Z

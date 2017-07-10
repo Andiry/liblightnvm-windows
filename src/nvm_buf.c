@@ -48,6 +48,11 @@ void *nvm_buf_alloc(const struct nvm_geo *geo, size_t nbytes)
 	return buf;
 }
 
+void nvm_buf_free(void *buf)
+{
+	_aligned_free(buf);
+}
+
 void nvm_buf_fill(char *buf, size_t nbytes)
 {
 //	#pragma omp parallel for schedule(static, 1)

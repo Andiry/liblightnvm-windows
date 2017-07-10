@@ -44,7 +44,7 @@ struct nvm_vblk* nvm_vblk_alloc(struct nvm_dev *dev, struct nvm_addr addrs[],
 {
 	struct nvm_vblk *vblk;
 	const struct nvm_geo *geo;
-	
+
 	if (naddrs > 128) {
 		errno = EINVAL;
 		return NULL;
@@ -305,7 +305,7 @@ ssize_t nvm_vblk_pwrite(struct nvm_vblk *vblk, const void *buf, size_t count,
 		{}
 	}
 
-	free(padding_buf);
+	nvm_buf_free(padding_buf);
 
 	if (nerr) {
 		errno = EIO;
@@ -321,7 +321,7 @@ ssize_t nvm_vblk_write(struct nvm_vblk *vblk, const void *buf, size_t count)
 
 	if (nbytes < 0)
 		return nbytes;		// Propagate errno
-	
+
 	vblk->pos_write += nbytes;	// All is good, increment write position
 
 	return nbytes;			// Return number of bytes written
