@@ -119,7 +119,7 @@ int nvm_bbt_flush(struct nvm_dev *dev, struct nvm_addr addr,
 	}
 
 	if (cached->nblks != spec->tblks) {
-		NVM_DEBUG("FAILED: cached->nblks(%lu) != spec->tblks(%u)",
+		NVM_DEBUG("FAILED: cached->nblks(%I64u) != spec->tblks(%u)",
 			  cached->nblks, spec->tblks);
 		errno = EINVAL;
 		free(spec);

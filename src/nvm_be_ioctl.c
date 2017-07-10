@@ -299,7 +299,7 @@ struct nvm_dev *nvm_be_ioctl_open(const char *dev_path, int flags)
 		break;
 	}
 	if (!dev->fd) {
-		NVM_DEBUG("FAILED: open(dev->path(%s)), dev->fd(%d)\n",
+		NVM_DEBUG("FAILED: open(dev->path(%s)), dev->fd(%p)\n",
 			  dev->path, dev->fd);
 
 		free(dev);
